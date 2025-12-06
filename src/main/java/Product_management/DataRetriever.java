@@ -10,8 +10,10 @@ public class DataRetriever {
         DBConnection dbconnection = new DBConnection();
         Connection connection = dbconnection.getDBConnection();
         try{
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT id,name FROM \"Product_category\"");
+            PreparedStatement statement = connection.prepareStatement("""
+                SELECT id,name FROM "Product_category"
+                    """);
+            ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 Category category =  new Category(rs.getInt("id"), rs.getString("name"));
                 allCategories.add(category);
@@ -27,4 +29,5 @@ public class DataRetriever {
         }
         return allCategories;
     }
+
 }
