@@ -16,4 +16,13 @@ public class Category {
     public String getName(){
         return this.name;
     }
+    
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                '}';
+    }
+    
 }
