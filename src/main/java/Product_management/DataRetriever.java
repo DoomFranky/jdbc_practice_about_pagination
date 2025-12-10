@@ -80,14 +80,12 @@ public class DataRetriever {
             //Could be change
             String condition = null;
             if (productName!=null) {
-                condition = "WHERE produce_name ILIKE ?"; //1
-            }
-
-            if (categoryName!=null) {
-                if(condition!=null) {
-                    condition += " AND category_name ILIKE ?";//2
+                condition = "WHERE product.name ILIKE ?"; //1
+                 if (categoryName!=null) {
+                    condition += " AND category.name ILIKE ?";//2
                 }
-                condition = "WHERE category_name ILIKE ?";//1
+            }else if(categoryName!=null){
+                condition = "WHERE category.name ILIKE ?";//1
             }
             
             String sql = "SELECT product.id AS product_id, product.name AS product_name, product.creation_product, category.id AS category_id, category.name AS category_name FROM \"Product\" AS product JOIN \"Product_category\" AS category ON category.product_id = product.id";
@@ -101,12 +99,12 @@ public class DataRetriever {
 
             //Could be change
             if(productName!=null){
-                preparedStatement.setString(1, productName);
+                preparedStatement.setString(1, "%"+productName+"%");
                 if(categoryName!=null){
-                    preparedStatement.setString(2, categoryName);
+                    preparedStatement.setString(2, "%"+categoryName+"%");
                 }
             }else if(categoryName!=null){
-                preparedStatement.setString(1, categoryName); 
+                preparedStatement.setString(1, "%"+categoryName+"%"); 
             }
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -160,14 +158,12 @@ public class DataRetriever {
             //Could be change
             String condition = null;
             if (productName!=null) {
-                condition = "WHERE produce_name ILIKE ?"; //1
-            }
-
-            if (categoryName!=null) {
-                if(condition!=null) {
-                    condition += " AND category_name ILIKE ?";//2
+                condition = "WHERE product.name ILIKE ?"; //1
+                 if (categoryName!=null) {
+                    condition += " AND category.name ILIKE ?";//2
                 }
-                condition = "WHERE category_name ILIKE ?";//1
+            }else if(categoryName!=null){
+                condition = "WHERE category.name ILIKE ?";//1
             }
             
             String sql = "SELECT product.id AS product_id, product.name AS product_name, product.creation_product, category.id AS category_id, category.name AS category_name FROM \"Product\" AS product JOIN \"Product_category\" AS category ON category.product_id = product.id LIMIT ? OFFSET ?";
@@ -183,12 +179,12 @@ public class DataRetriever {
             preparedStatement.setInt(2, (page-1)*size);
             //Could be change
             if(productName!=null){
-                preparedStatement.setString(3, productName);
+                preparedStatement.setString(3, "%"+productName+"%");
                 if(categoryName!=null){
-                    preparedStatement.setString(4, categoryName);
+                    preparedStatement.setString(4, "%"+categoryName+"%");
                 }
             }else if(categoryName!=null){
-                preparedStatement.setString(3, categoryName); 
+                preparedStatement.setString(5, "%"+categoryName+"%"); 
             }
 
             ResultSet rs = preparedStatement.executeQuery();
